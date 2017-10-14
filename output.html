@@ -1,0 +1,1010 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <style>
+        dt {
+            font-weight: bold;
+            margin-top: 20px;
+            padding-left: 35px;
+        }
+
+        dd {
+            box-shadow: 3px 3px 6px #888888;
+            background-color: rgba(210, 210, 255, 0.5);
+            padding: 20px;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            font-family: "Merriweather", serif;
+            font-size: 18px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .desc-container {
+            color: rgba(210, 210, 255, 0.5);;
+        }
+
+        pre {
+            white-space: pre-wrap;       /* Since CSS 2.1 */
+            white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+            white-space: -pre-wrap;      /* Opera 4-6 */
+            white-space: -o-pre-wrap;    /* Opera 7 */
+            word-wrap: break-word;       /* Internet Explorer 5.5+ */
+        }
+    </style>
+</head>
+
+<body>
+<div class="container" id="description-container">
+    
+        <dt></dt>
+        <dd><div>
+ <p>A stowaway and a controller play the following game. </p>
+ <p>The train is represented by <span class="tex-span"><i>n</i></span> wagons which are numbered with positive integers from <span class="tex-span">1</span> to <span class="tex-span"><i>n</i></span> from the head to the tail. The stowaway and the controller are initially in some two different wagons. Every minute the train can be in one of two conditions — moving or idle. Every minute the players move.</p>
+ <p>The controller's move is as follows. The controller has the movement direction — to the train's head or to its tail. During a move the controller moves to the neighbouring wagon correspondingly to its movement direction. If at the end of his move the controller enters the <span class="tex-span">1</span>-st or the <span class="tex-span"><i>n</i></span>-th wagon, that he changes the direction of his movement into the other one. In other words, the controller cyclically goes from the train's head to its tail and back again during all the time of a game, shifting during each move by one wagon. Note, that the controller always have exactly one possible move.</p>
+ <p>The stowaway's move depends from the state of the train. If the train is moving, then the stowaway can shift to one of neighbouring wagons or he can stay where he is without moving. If the train is at a station and is idle, then the stowaway leaves the train (i.e. he is now not present in any train wagon) and then, if it is not the terminal train station, he enters the train again into any of <span class="tex-span"><i>n</i></span> wagons (not necessarily into the one he's just left and not necessarily into the neighbouring one). If the train is idle for several minutes then each such minute the stowaway leaves the train and enters it back.</p>
+ <p>Let's determine the order of the players' moves. If at the given minute the train is moving, then first the stowaway moves and then the controller does. If at this minute the train is idle, then first the stowaway leaves the train, then the controller moves and then the stowaway enters the train.</p>
+ <p>If at some point in time the stowaway and the controller happen to be in one wagon, then the controller wins: he makes the stowaway pay fine. If after a while the stowaway reaches the terminal train station, then the stowaway wins: he simply leaves the station during his move and never returns there again.</p>
+ <p>At any moment of time the players know each other's positions. The players play in the optimal way. Specifically, if the controller wins, then the stowaway plays so as to lose as late as possible. As all the possible moves for the controller are determined uniquely, then he is considered to play optimally always. Determine the winner.</p>
+</div></dd>
+    
+        <dt>Input</dt>
+        <dd><div class="input-specification">
+ <div class="section-title"/div>
+ <p>The first line contains three integers <span class="tex-span"><i>n</i></span>, <span class="tex-span"><i>m</i></span> and <span class="tex-span"><i>k</i></span>. They represent the number of wagons in the train, the stowaway's and the controller's initial positions correspondingly (<span class="tex-span">2 ≤ <i>n</i> ≤ 50</span>, <span class="tex-span">1 ≤ <i>m</i>, <i>k</i> ≤ <i>n</i></span>, <span class="tex-span"><i>m</i> ≠ <i>k</i></span>).</p>
+ <p>The second line contains the direction in which a controller moves. "to head" means that the controller moves to the train's head and "to tail" means that the controller moves to its tail. It is guaranteed that in the direction in which the controller is moving, there is at least one wagon. Wagon <span class="tex-span">1</span> is the head, and wagon <span class="tex-span"><i>n</i></span> is the tail.</p>
+ <p>The third line has the length from <span class="tex-span">1</span> to <span class="tex-span">200</span> and consists of symbols "0" and "1". The <span class="tex-span"><i>i</i></span>-th symbol contains information about the train's state at the <span class="tex-span"><i>i</i></span>-th minute of time. "0" means that in this very minute the train moves and "1" means that the train in this very minute stands idle. The last symbol of the third line is always "1" — that's the terminal train station.</p>
+</div></dd>
+    
+        <dt>Output</dt>
+        <dd><div class="output-specification">
+ <div class="section-title"/div>
+ <p>If the stowaway wins, print "Stowaway" without quotes. Otherwise, print "Controller" again without quotes, then, separated by a space, print the number of a minute, at which the stowaway will be caught.</p>
+</div></dd>
+    
+        <dt>Example</dt>
+        <dd><style type='text/css'>   .input, .output {border: 1px solid #888888;}    .output {margin-bottom:1em;position:relative;top:-1px;}    .output pre,.input pre {background-color:#EFEFEF;line-height:1.25em;margin:0;padding:0.25em;}    .title {background-color:#FFFFFF;border-bottom: 1px solid #888888;font-family:arial;font-weight:bold;padding:0.25em;} </style><div class="sample-tests">
+ <div class="section-title"/div>
+ <div class="sample-test">
+  <div class="input">
+   <div class="title">
+    Input
+   </div>
+   <pre>5 3 2<br>to head<br>0001001<br></pre>
+  </div>
+  <div class="output">
+   <div class="title">
+    Output
+   </div>
+   <pre>Stowaway</pre>
+  </div>
+  <div class="input">
+   <div class="title">
+    Input
+   </div>
+   <pre>3 2 1<br>to tail<br>0001<br></pre>
+  </div>
+  <div class="output">
+   <div class="title">
+    Output
+   </div>
+   <pre>Controller 2</pre>
+  </div>
+ </div>
+</div></dd>
+    
+</div>
+<textarea class="data-json-container" style="display: none"></textarea>
+
+<script type="text/javascript">moduleName = "./problem/description";</script>
+<script src="/static/bundle/loader.d41d8cd98f00b204e980.js?1507728032431"></script>
+<script src="/static/bundle/vendor.718fa7a24912623a2098.js"></script>
+<script src="/static/bundle/app.1c0be34f10e14230f282.js"></script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <style>
+        dt {
+            font-weight: bold;
+            margin-top: 20px;
+            padding-left: 35px;
+        }
+
+        dd {
+            box-shadow: 3px 3px 6px #888888;
+            background-color: rgba(210, 210, 255, 0.5);
+            padding: 20px;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            font-family: "Merriweather", serif;
+            font-size: 18px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .desc-container {
+            color: rgba(210, 210, 255, 0.5);;
+        }
+
+        pre {
+            white-space: pre-wrap;       /* Since CSS 2.1 */
+            white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+            white-space: -pre-wrap;      /* Opera 4-6 */
+            white-space: -o-pre-wrap;    /* Opera 7 */
+            word-wrap: break-word;       /* Internet Explorer 5.5+ */
+        }
+    </style>
+</head>
+
+<body>
+<div class="container" id="description-container">
+    
+        <dt></dt>
+        <dd><div>
+ <p>Sereja has a sequence that consists of <span class="tex-span"><i>n</i></span> positive integers, <span class="tex-span"><i>a</i><sub class="lower-index">1</sub>, <i>a</i><sub class="lower-index">2</sub>, ..., <i>a</i><sub class="lower-index"><i>n</i></sub></span>. </p>
+ <p>First Sereja took a piece of squared paper and wrote all <span class="tex-font-style-bf">distinct</span> non-empty non-decreasing subsequences of sequence <span class="tex-span"><i>a</i></span>. Then for each sequence written on the squared paper, Sereja wrote on a piece of lines paper all sequences that <span class="tex-font-style-it">do not exceed</span> it.</p>
+ <p>A sequence of positive integers <span class="tex-span"><i>x</i> = <i>x</i><sub class="lower-index">1</sub>, <i>x</i><sub class="lower-index">2</sub>, ..., <i>x</i><sub class="lower-index"><i>r</i></sub></span> doesn't exceed a sequence of positive integers <span class="tex-span"><i>y</i> = <i>y</i><sub class="lower-index">1</sub>, <i>y</i><sub class="lower-index">2</sub>, ..., <i>y</i><sub class="lower-index"><i>r</i></sub></span>, if the following inequation holds: <span class="tex-span"><i>x</i><sub class="lower-index">1</sub> ≤ <i>y</i><sub class="lower-index">1</sub>, <i>x</i><sub class="lower-index">2</sub> ≤ <i>y</i><sub class="lower-index">2</sub>, ..., <i>x</i><sub class="lower-index"><i>r</i></sub> ≤ <i>y</i><sub class="lower-index"><i>r</i></sub></span>.</p>
+ <p>Now Sereja wonders, how many sequences are written on the lines piece of paper. Help Sereja, find the required quantity modulo <span class="tex-span">1000000007</span> <span class="tex-span">(10<sup class="upper-index">9</sup> + 7)</span>. </p>
+</div></dd>
+    
+        <dt>Input</dt>
+        <dd><div class="input-specification">
+ <div class="section-title"/div>
+ <p>The first line contains integer <span class="tex-span"><i>n</i></span> <span class="tex-span">(1 ≤ <i>n</i> ≤ 10<sup class="upper-index">5</sup>)</span>. The second line contains <span class="tex-span"><i>n</i></span> integers <span class="tex-span"><i>a</i><sub class="lower-index">1</sub>, <i>a</i><sub class="lower-index">2</sub>, ..., <i>a</i><sub class="lower-index"><i>n</i></sub></span> <span class="tex-span">(1 ≤ <i>a</i><sub class="lower-index"><i>i</i></sub> ≤ 10<sup class="upper-index">6</sup>)</span>.</p>
+</div></dd>
+    
+        <dt>Output</dt>
+        <dd><div class="output-specification">
+ <div class="section-title"/div>
+ <p>In the single line print the answer to the problem modulo <span class="tex-span">1000000007</span> <span class="tex-span">(10<sup class="upper-index">9</sup> + 7)</span>.</p>
+</div></dd>
+    
+        <dt>Example</dt>
+        <dd><style type='text/css'>   .input, .output {border: 1px solid #888888;}    .output {margin-bottom:1em;position:relative;top:-1px;}    .output pre,.input pre {background-color:#EFEFEF;line-height:1.25em;margin:0;padding:0.25em;}    .title {background-color:#FFFFFF;border-bottom: 1px solid #888888;font-family:arial;font-weight:bold;padding:0.25em;} </style><div class="sample-tests">
+ <div class="section-title"/div>
+ <div class="sample-test">
+  <div class="input">
+   <div class="title">
+    Input
+   </div>
+   <pre>1<br>42<br></pre>
+  </div>
+  <div class="output">
+   <div class="title">
+    Output
+   </div>
+   <pre>42<br></pre>
+  </div>
+  <div class="input">
+   <div class="title">
+    Input
+   </div>
+   <pre>3<br>1 2 2<br></pre>
+  </div>
+  <div class="output">
+   <div class="title">
+    Output
+   </div>
+   <pre>13<br></pre>
+  </div>
+  <div class="input">
+   <div class="title">
+    Input
+   </div>
+   <pre>5<br>1 2 3 4 5<br></pre>
+  </div>
+  <div class="output">
+   <div class="title">
+    Output
+   </div>
+   <pre>719<br></pre>
+  </div>
+ </div>
+</div></dd>
+    
+</div>
+<textarea class="data-json-container" style="display: none"></textarea>
+
+<script type="text/javascript">moduleName = "./problem/description";</script>
+<script src="/static/bundle/loader.d41d8cd98f00b204e980.js?1507728032431"></script>
+<script src="/static/bundle/vendor.718fa7a24912623a2098.js"></script>
+<script src="/static/bundle/app.1c0be34f10e14230f282.js"></script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <style>
+        dt {
+            font-weight: bold;
+            margin-top: 20px;
+            padding-left: 35px;
+        }
+
+        dd {
+            box-shadow: 3px 3px 6px #888888;
+            background-color: rgba(210, 210, 255, 0.5);
+            padding: 20px;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            font-family: "Merriweather", serif;
+            font-size: 18px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .desc-container {
+            color: rgba(210, 210, 255, 0.5);;
+        }
+
+        pre {
+            white-space: pre-wrap;       /* Since CSS 2.1 */
+            white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+            white-space: -pre-wrap;      /* Opera 4-6 */
+            white-space: -o-pre-wrap;    /* Opera 7 */
+            word-wrap: break-word;       /* Internet Explorer 5.5+ */
+        }
+    </style>
+</head>
+
+<body>
+<div class="container" id="description-container">
+    
+        <dt></dt>
+        <dd><div>
+ <p><span class="tex-font-style-it"><span class="tex-font-style-bf">Permutation</span> <span class="tex-span"><i>p</i></span> is an ordered set of integers <span class="tex-span"><i>p</i><sub class="lower-index">1</sub>,  <i>p</i><sub class="lower-index">2</sub>,  ...,  <i>p</i><sub class="lower-index"><i>n</i></sub></span>, consisting of <span class="tex-span"><i>n</i></span> distinct positive integers, each of them doesn't exceed <span class="tex-span"><i>n</i></span>. We'll denote the <span class="tex-span"><i>i</i></span>-th element of permutation <span class="tex-span"><i>p</i></span> as <span class="tex-span"><i>p</i><sub class="lower-index"><i>i</i></sub></span>. We'll call number <span class="tex-span"><i>n</i></span> the size or the length of permutation <span class="tex-span"><i>p</i><sub class="lower-index">1</sub>,  <i>p</i><sub class="lower-index">2</sub>,  ...,  <i>p</i><sub class="lower-index"><i>n</i></sub></span>.</span></p>
+ <p>Petya decided to introduce the sum operation on the set of permutations of length <span class="tex-span"><i>n</i></span>. Let's assume that we are given two permutations of length <span class="tex-span"><i>n</i></span>: <span class="tex-span"><i>a</i><sub class="lower-index">1</sub>, <i>a</i><sub class="lower-index">2</sub>, ..., <i>a</i><sub class="lower-index"><i>n</i></sub></span> and <span class="tex-span"><i>b</i><sub class="lower-index">1</sub>, <i>b</i><sub class="lower-index">2</sub>, ..., <i>b</i><sub class="lower-index"><i>n</i></sub></span>. Petya calls the sum of permutations <span class="tex-span"><i>a</i></span> and <span class="tex-span"><i>b</i></span> such permutation <span class="tex-span"><i>c</i></span> of length <span class="tex-span"><i>n</i></span>, where <span class="tex-span"><i>c</i><sub class="lower-index"><i>i</i></sub> = ((<i>a</i><sub class="lower-index"><i>i</i></sub> - 1 + <i>b</i><sub class="lower-index"><i>i</i></sub> - 1) <i>mod</i> <i>n</i>) + 1</span> <span class="tex-span">(1 ≤ <i>i</i> ≤ <i>n</i>)</span>.</p>
+ <p>Operation <img align="middle" class="tex-formula" src="https://odzkskevi.qnssl.com/ff1268fc011b8eacf65b4ffaac5e1cf4?v=1507320888" style="max-width: 100.0%;max-height: 100.0%;" SRC="https://odzkskevi.qnssl.com/ff1268fc011b8eacf65b4ffaac5e1cf4?v=1507320888"> means taking the remainder after dividing number <span class="tex-span"><i>x</i></span> by number <span class="tex-span"><i>y</i></span>.</p>
+ <p>Obviously, not for all permutations <span class="tex-span"><i>a</i></span> and <span class="tex-span"><i>b</i></span> exists permutation <span class="tex-span"><i>c</i></span> that is sum of <span class="tex-span"><i>a</i></span> and <span class="tex-span"><i>b</i></span>. That's why Petya got sad and asked you to do the following: given <span class="tex-span"><i>n</i></span>, count the number of such pairs of permutations <span class="tex-span"><i>a</i></span> and <span class="tex-span"><i>b</i></span> of length <span class="tex-span"><i>n</i></span>, that exists permutation <span class="tex-span"><i>c</i></span> that is sum of <span class="tex-span"><i>a</i></span> and <span class="tex-span"><i>b</i></span>. The pair of permutations <span class="tex-span"><i>x</i>, <i>y</i></span> <span class="tex-span">(<i>x</i> ≠ <i>y</i>)</span> and the pair of permutations <span class="tex-span"><i>y</i>, <i>x</i></span> are considered distinct pairs.</p>
+ <p>As the answer can be rather large, print the remainder after dividing it by <span class="tex-span">1000000007</span> (<span class="tex-span">10<sup class="upper-index">9</sup> + 7</span>).</p>
+</div></dd>
+    
+        <dt>Input</dt>
+        <dd><div class="input-specification">
+ <div class="section-title"/div>
+ <p>The single line contains integer <span class="tex-span"><i>n</i> (1 ≤ <i>n</i> ≤ 16)</span>.</p>
+</div></dd>
+    
+        <dt>Output</dt>
+        <dd><div class="output-specification">
+ <div class="section-title"/div>
+ <p>In the single line print a single non-negative integer — the number of such pairs of permutations <span class="tex-span"><i>a</i></span> and <span class="tex-span"><i>b</i></span>, that exists permutation <span class="tex-span"><i>c</i></span> that is sum of <span class="tex-span"><i>a</i></span> and <span class="tex-span"><i>b</i></span>, modulo <span class="tex-span">1000000007</span> (<span class="tex-span">10<sup class="upper-index">9</sup> + 7</span>).</p>
+</div></dd>
+    
+        <dt>Example</dt>
+        <dd><style type='text/css'>   .input, .output {border: 1px solid #888888;}    .output {margin-bottom:1em;position:relative;top:-1px;}    .output pre,.input pre {background-color:#EFEFEF;line-height:1.25em;margin:0;padding:0.25em;}    .title {background-color:#FFFFFF;border-bottom: 1px solid #888888;font-family:arial;font-weight:bold;padding:0.25em;} </style><div class="sample-tests">
+ <div class="section-title"/div>
+ <div class="sample-test">
+  <div class="input">
+   <div class="title">
+    Input
+   </div>
+   <pre>3<br></pre>
+  </div>
+  <div class="output">
+   <div class="title">
+    Output
+   </div>
+   <pre>18<br></pre>
+  </div>
+  <div class="input">
+   <div class="title">
+    Input
+   </div>
+   <pre>5<br></pre>
+  </div>
+  <div class="output">
+   <div class="title">
+    Output
+   </div>
+   <pre>1800<br></pre>
+  </div>
+ </div>
+</div></dd>
+    
+</div>
+<textarea class="data-json-container" style="display: none"></textarea>
+
+<script type="text/javascript">moduleName = "./problem/description";</script>
+<script src="/static/bundle/loader.d41d8cd98f00b204e980.js?1507728032431"></script>
+<script src="/static/bundle/vendor.718fa7a24912623a2098.js"></script>
+<script src="/static/bundle/app.1c0be34f10e14230f282.js"></script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <style>
+        dt {
+            font-weight: bold;
+            margin-top: 20px;
+            padding-left: 35px;
+        }
+
+        dd {
+            box-shadow: 3px 3px 6px #888888;
+            background-color: rgba(210, 210, 255, 0.5);
+            padding: 20px;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            font-family: "Merriweather", serif;
+            font-size: 18px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .desc-container {
+            color: rgba(210, 210, 255, 0.5);;
+        }
+
+        pre {
+            white-space: pre-wrap;       /* Since CSS 2.1 */
+            white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+            white-space: -pre-wrap;      /* Opera 4-6 */
+            white-space: -o-pre-wrap;    /* Opera 7 */
+            word-wrap: break-word;       /* Internet Explorer 5.5+ */
+        }
+    </style>
+</head>
+
+<body>
+<div class="container" id="description-container">
+    
+        <dt></dt>
+        <dd><div>
+ <p>There have recently been elections in the zoo. Overall there were <span class="tex-span">7</span> main political parties: one of them is the Little Elephant Political Party, <span class="tex-span">6</span> other parties have less catchy names.</p>
+ <p>Political parties find their number in the ballot highly important. Overall there are <span class="tex-span"><i>m</i></span> possible numbers: <span class="tex-span">1, 2, ..., <i>m</i></span>. Each of these <span class="tex-span">7</span> parties is going to be assigned in some way to exactly one number, at that, two distinct parties cannot receive the same number.</p>
+ <p>The Little Elephant Political Party members believe in the lucky digits <span class="tex-span">4</span> and <span class="tex-span">7</span>. They want to evaluate their chances in the elections. For that, they need to find out, how many correct assignments are there, such that the number of lucky digits in the Little Elephant Political Party ballot number is strictly larger than the total number of lucky digits in the ballot numbers of 6 other parties. </p>
+ <p>Help the Little Elephant Political Party, calculate this number. As the answer can be rather large, print the remainder from dividing it by <span class="tex-span">1000000007</span> <span class="tex-span">(10<sup class="upper-index">9</sup> + 7)</span>.</p>
+</div></dd>
+    
+        <dt>Input</dt>
+        <dd><div class="input-specification">
+ <div class="section-title"/div>
+ <p>A single line contains a single positive integer <span class="tex-span"><i>m</i></span> <span class="tex-span">(7 ≤ <i>m</i> ≤ 10<sup class="upper-index">9</sup>)</span> — the number of possible numbers in the ballot.</p>
+</div></dd>
+    
+        <dt>Output</dt>
+        <dd><div class="output-specification">
+ <div class="section-title"/div>
+ <p>In a single line print a single integer — the answer to the problem modulo <span class="tex-span">1000000007</span> <span class="tex-span">(10<sup class="upper-index">9</sup> + 7)</span>.</p>
+</div></dd>
+    
+        <dt>Example</dt>
+        <dd><style type='text/css'>   .input, .output {border: 1px solid #888888;}    .output {margin-bottom:1em;position:relative;top:-1px;}    .output pre,.input pre {background-color:#EFEFEF;line-height:1.25em;margin:0;padding:0.25em;}    .title {background-color:#FFFFFF;border-bottom: 1px solid #888888;font-family:arial;font-weight:bold;padding:0.25em;} </style><div class="sample-tests">
+ <div class="section-title"/div>
+ <div class="sample-test">
+  <div class="input">
+   <div class="title">
+    Input
+   </div>
+   <pre>7<br></pre>
+  </div>
+  <div class="output">
+   <div class="title">
+    Output
+   </div>
+   <pre>0<br></pre>
+  </div>
+  <div class="input">
+   <div class="title">
+    Input
+   </div>
+   <pre>8<br></pre>
+  </div>
+  <div class="output">
+   <div class="title">
+    Output
+   </div>
+   <pre>1440<br></pre>
+  </div>
+ </div>
+</div></dd>
+    
+</div>
+<textarea class="data-json-container" style="display: none"></textarea>
+
+<script type="text/javascript">moduleName = "./problem/description";</script>
+<script src="/static/bundle/loader.d41d8cd98f00b204e980.js?1507728032431"></script>
+<script src="/static/bundle/vendor.718fa7a24912623a2098.js"></script>
+<script src="/static/bundle/app.1c0be34f10e14230f282.js"></script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <style>
+        dt {
+            font-weight: bold;
+            margin-top: 20px;
+            padding-left: 35px;
+        }
+
+        dd {
+            box-shadow: 3px 3px 6px #888888;
+            background-color: rgba(210, 210, 255, 0.5);
+            padding: 20px;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            font-family: "Merriweather", serif;
+            font-size: 18px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .desc-container {
+            color: rgba(210, 210, 255, 0.5);;
+        }
+
+        pre {
+            white-space: pre-wrap;       /* Since CSS 2.1 */
+            white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+            white-space: -pre-wrap;      /* Opera 4-6 */
+            white-space: -o-pre-wrap;    /* Opera 7 */
+            word-wrap: break-word;       /* Internet Explorer 5.5+ */
+        }
+    </style>
+</head>
+
+<body>
+<div class="container" id="description-container">
+    
+        <dt></dt>
+        <dd><div>
+ <p>In this task Anna and Maria play the following game. Initially they have a checkered piece of paper with a painted <span class="tex-span"><i>n</i> × <i>m</i></span> rectangle (only the border, no filling). Anna and Maria move in turns and Anna starts. During each move one should paint inside the last-painted rectangle a new lesser rectangle (along the grid lines). The new rectangle should have no common points with the previous one. Note that when we paint a rectangle, we always paint only the border, the rectangles aren't filled.</p>
+ <p>Nobody wins the game — Anna and Maria simply play until they have done <span class="tex-span"><i>k</i></span> moves in total. Count the number of different ways to play this game.</p>
+</div></dd>
+    
+        <dt>Input</dt>
+        <dd><div class="input-specification">
+ <div class="section-title"/div>
+ <p>The first and only line contains three integers: <span class="tex-span"><i>n</i>, <i>m</i>, <i>k</i></span> (<span class="tex-span">1 ≤ <i>n</i>, <i>m</i>, <i>k</i> ≤ 1000</span>).</p>
+</div></dd>
+    
+        <dt>Output</dt>
+        <dd><div class="output-specification">
+ <div class="section-title"/div>
+ <p>Print the single number — the number of the ways to play the game. As this number can be very big, print the value modulo <span class="tex-span">1000000007</span> (<span class="tex-span">10<sup class="upper-index">9</sup> + 7</span>).</p>
+</div></dd>
+    
+        <dt>Example</dt>
+        <dd><style type='text/css'>   .input, .output {border: 1px solid #888888;}    .output {margin-bottom:1em;position:relative;top:-1px;}    .output pre,.input pre {background-color:#EFEFEF;line-height:1.25em;margin:0;padding:0.25em;}    .title {background-color:#FFFFFF;border-bottom: 1px solid #888888;font-family:arial;font-weight:bold;padding:0.25em;} </style><div class="sample-tests">
+ <div class="section-title"/div>
+ <div class="sample-test">
+  <div class="input">
+   <div class="title">
+    Input
+   </div>
+   <pre>3 3 1<br></pre>
+  </div>
+  <div class="output">
+   <div class="title">
+    Output
+   </div>
+   <pre>1<br></pre>
+  </div>
+  <div class="input">
+   <div class="title">
+    Input
+   </div>
+   <pre>4 4 1<br></pre>
+  </div>
+  <div class="output">
+   <div class="title">
+    Output
+   </div>
+   <pre>9<br></pre>
+  </div>
+  <div class="input">
+   <div class="title">
+    Input
+   </div>
+   <pre>6 7 2<br></pre>
+  </div>
+  <div class="output">
+   <div class="title">
+    Output
+   </div>
+   <pre>75<br></pre>
+  </div>
+ </div>
+</div></dd>
+    
+        <dt>Note</dt>
+        <dd><div class="note">
+ <div class="section-title"Note/div>
+ <p>Two ways to play the game are considered different if the final pictures are different. In other words, if one way contains a rectangle that is not contained in the other way.</p>
+ <p>In the first sample Anna, who performs her first and only move, has only one possible action plan — insert a <span class="tex-span">1 × 1</span> square inside the given <span class="tex-span">3 × 3</span> square.</p>
+ <p>In the second sample Anna has as much as 9 variants: 4 ways to paint a <span class="tex-span">1 × 1</span> square, 2 ways to insert a <span class="tex-span">1 × 2</span> rectangle vertically, 2 more ways to insert it horizontally and one more way is to insert a <span class="tex-span">2 × 2</span> square.</p>
+</div></dd>
+    
+</div>
+<textarea class="data-json-container" style="display: none"></textarea>
+
+<script type="text/javascript">moduleName = "./problem/description";</script>
+<script src="/static/bundle/loader.d41d8cd98f00b204e980.js?1507728032431"></script>
+<script src="/static/bundle/vendor.718fa7a24912623a2098.js"></script>
+<script src="/static/bundle/app.1c0be34f10e14230f282.js"></script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <style>
+        dt {
+            font-weight: bold;
+            margin-top: 20px;
+            padding-left: 35px;
+        }
+
+        dd {
+            box-shadow: 3px 3px 6px #888888;
+            background-color: rgba(210, 210, 255, 0.5);
+            padding: 20px;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            font-family: "Merriweather", serif;
+            font-size: 18px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .desc-container {
+            color: rgba(210, 210, 255, 0.5);;
+        }
+
+        pre {
+            white-space: pre-wrap;       /* Since CSS 2.1 */
+            white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+            white-space: -pre-wrap;      /* Opera 4-6 */
+            white-space: -o-pre-wrap;    /* Opera 7 */
+            word-wrap: break-word;       /* Internet Explorer 5.5+ */
+        }
+    </style>
+</head>
+
+<body>
+<div class="container" id="description-container">
+    
+        <dt></dt>
+        <dd><div>
+ <p>Demiurges Shambambukli and Mazukta love to watch the games of ordinary people. Today, they noticed two men who play the following game.</p>
+ <p>There is a rooted tree on <span class="tex-span"><i>n</i></span> nodes, <span class="tex-span"><i>m</i></span> of which are <span class="tex-font-style-it">leaves</span> (a leaf is a nodes that does not have any children), edges of the tree are directed from parent to children. In the leaves of the tree integers from 1 to <span class="tex-span"><i>m</i></span> are placed in such a way that each number appears exactly in one leaf.</p>
+ <p>Initially, the root of the tree contains a piece. Two players move this piece in turns, during a move a player moves the piece from its current nodes to one of its children; if the player can not make a move, the game ends immediately. The <span class="tex-font-style-it">result</span> of the game is the number placed in the leaf where a piece has completed its movement. The player who makes the first move tries to maximize the result of the game and the second player, on the contrary, tries to minimize the result. We can assume that both players move optimally well.</p>
+ <p>Demiurges are omnipotent, so before the game they can arbitrarily rearrange the numbers placed in the leaves. Shambambukli wants to rearrange numbers so that the result of the game when both players play optimally well is as large as possible, and Mazukta wants the result to be as small as possible. What will be the outcome of the game, if the numbers are rearranged by Shambambukli, and what will it be if the numbers are rearranged by Mazukta? Of course, the Demiurges choose the best possible option of arranging numbers.</p>
+</div></dd>
+    
+        <dt>Input</dt>
+        <dd><div class="input-specification">
+ <div class="section-title"/div>
+ <p>The first line contains a single integer <span class="tex-span"><i>n</i></span>&nbsp;— the number of nodes in the tree (<span class="tex-span">1 ≤ <i>n</i> ≤ 2·10<sup class="upper-index">5</sup></span>).</p>
+ <p>Each of the next <span class="tex-span"><i>n</i> - 1</span> lines contains two integers <span class="tex-span"><i>u</i><sub class="lower-index"><i>i</i></sub></span> and <span class="tex-span"><i>v</i><sub class="lower-index"><i>i</i></sub></span> (<span class="tex-span">1 ≤ <i>u</i><sub class="lower-index"><i>i</i></sub>, <i>v</i><sub class="lower-index"><i>i</i></sub> ≤ <i>n</i></span>)&nbsp;— the ends of the edge of the tree; the edge leads from node <span class="tex-span"><i>u</i><sub class="lower-index"><i>i</i></sub></span> to node <span class="tex-span"><i>v</i><sub class="lower-index"><i>i</i></sub></span>. It is guaranteed that the described graph is a rooted tree, and the root is the node 1.</p>
+</div></dd>
+    
+        <dt>Output</dt>
+        <dd><div class="output-specification">
+ <div class="section-title"/div>
+ <p>Print two space-separated integers — the maximum possible and the minimum possible result of the game.</p>
+</div></dd>
+    
+        <dt>Example</dt>
+        <dd><style type='text/css'>   .input, .output {border: 1px solid #888888;}    .output {margin-bottom:1em;position:relative;top:-1px;}    .output pre,.input pre {background-color:#EFEFEF;line-height:1.25em;margin:0;padding:0.25em;}    .title {background-color:#FFFFFF;border-bottom: 1px solid #888888;font-family:arial;font-weight:bold;padding:0.25em;} </style><div class="sample-tests">
+ <div class="section-title"/div>
+ <div class="sample-test">
+  <div class="input">
+   <div class="title">
+    Input
+   </div>
+   <pre>5<br>1 2<br>1 3<br>2 4<br>2 5<br></pre>
+  </div>
+  <div class="output">
+   <div class="title">
+    Output
+   </div>
+   <pre>3 2<br></pre>
+  </div>
+  <div class="input">
+   <div class="title">
+    Input
+   </div>
+   <pre>6<br>1 2<br>1 3<br>3 4<br>1 5<br>5 6<br></pre>
+  </div>
+  <div class="output">
+   <div class="title">
+    Output
+   </div>
+   <pre>3 3<br></pre>
+  </div>
+ </div>
+</div></dd>
+    
+        <dt>Note</dt>
+        <dd><div class="note">
+ <div class="section-title"Note/div>
+ <p>Consider the first sample. The tree contains three leaves: 3, 4 and 5. If we put the maximum number 3 at node 3, then the first player moves there and the result will be 3. On the other hand, it is easy to see that for any rearrangement the first player can guarantee the result of at least 2.</p>
+ <p>In the second sample no matter what the arragment is the first player can go along the path that ends with a leaf with number 3.</p>
+</div></dd>
+    
+</div>
+<textarea class="data-json-container" style="display: none"></textarea>
+
+<script type="text/javascript">moduleName = "./problem/description";</script>
+<script src="/static/bundle/loader.d41d8cd98f00b204e980.js?1507728032431"></script>
+<script src="/static/bundle/vendor.718fa7a24912623a2098.js"></script>
+<script src="/static/bundle/app.1c0be34f10e14230f282.js"></script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <style>
+        dt {
+            font-weight: bold;
+            margin-top: 20px;
+            padding-left: 35px;
+        }
+
+        dd {
+            box-shadow: 3px 3px 6px #888888;
+            background-color: rgba(210, 210, 255, 0.5);
+            padding: 20px;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            font-family: "Merriweather", serif;
+            font-size: 18px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .desc-container {
+            color: rgba(210, 210, 255, 0.5);;
+        }
+
+        pre {
+            white-space: pre-wrap;       /* Since CSS 2.1 */
+            white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+            white-space: -pre-wrap;      /* Opera 4-6 */
+            white-space: -o-pre-wrap;    /* Opera 7 */
+            word-wrap: break-word;       /* Internet Explorer 5.5+ */
+        }
+    </style>
+</head>
+
+<body>
+<div class="container" id="description-container">
+    
+        <dt></dt>
+        <dd><div>
+ <p>One must train much to do well on wizardry contests. So, there are numerous wizardry schools and magic fees.</p>
+ <p>One of such magic schools consists of <span class="tex-span"><i>n</i></span> tours. A winner of each tour gets a huge prize. The school is organised quite far away, so one will have to take all the prizes home in one go. And the bags that you've brought with you have space for no more than <span class="tex-span"><i>k</i></span> huge prizes.</p>
+ <p>Besides the fact that you want to take all the prizes home, you also want to perform well. You will consider your performance good if you win at least <span class="tex-span"><i>l</i></span> tours.</p>
+ <p>In fact, years of organizing contests proved to the organizers that transporting huge prizes is an issue for the participants. Alas, no one has ever invented a spell that would shrink the prizes... So, here's the solution: for some tours the winner gets a bag instead of a huge prize. Each bag is characterized by number <span class="tex-span"><i>a</i><sub class="lower-index"><i>i</i></sub></span> — the number of huge prizes that will fit into it.</p>
+ <p>You already know the subject of all tours, so you can estimate the probability <span class="tex-span"><i>p</i><sub class="lower-index"><i>i</i></sub></span> of winning the <span class="tex-span"><i>i</i></span>-th tour. You cannot skip the tour under any circumstances.</p>
+ <p>Find the probability that you will perform well on the contest and will be able to take all won prizes home (that is, that you will be able to fit all the huge prizes that you won into the bags that you either won or brought from home).</p>
+</div></dd>
+    
+        <dt>Input</dt>
+        <dd><div class="input-specification">
+ <div class="section-title"/div>
+ <p>The first line contains three integers <span class="tex-span"><i>n</i></span>, <span class="tex-span"><i>l</i></span>, <span class="tex-span"><i>k</i></span> (<span class="tex-span">1 ≤ <i>n</i> ≤ 200, 0 ≤ <i>l</i>, <i>k</i> ≤ 200</span>) — the number of tours, the minimum number of tours to win, and the number of prizes that you can fit in the bags brought from home, correspondingly.</p>
+ <p>The second line contains <span class="tex-span"><i>n</i></span> space-separated integers, <span class="tex-span"><i>p</i><sub class="lower-index"><i>i</i></sub></span> (<span class="tex-span">0 ≤ <i>p</i><sub class="lower-index"><i>i</i></sub> ≤ 100</span>) — the probability to win the <span class="tex-span"><i>i</i></span>-th tour, in percents.</p>
+ <p>The third line contains <span class="tex-span"><i>n</i></span> space-separated integers, <span class="tex-span"><i>a</i><sub class="lower-index"><i>i</i></sub></span> (<span class="tex-span">1 ≤ <i>a</i><sub class="lower-index"><i>i</i></sub> ≤ 200</span>) — the capacity of the bag that will be awarded to you for winning the <span class="tex-span"><i>i</i></span>-th tour, or else -1, if the prize for the <span class="tex-span"><i>i</i></span>-th tour is a huge prize and not a bag.</p>
+</div></dd>
+    
+        <dt>Output</dt>
+        <dd><div class="output-specification">
+ <div class="section-title"/div>
+ <p>Print a single real number — the answer to the problem. The answer will be accepted if the absolute or relative error does not exceed <span class="tex-span">10<sup class="upper-index"> - 6</sup></span>.</p>
+</div></dd>
+    
+        <dt>Example</dt>
+        <dd><style type='text/css'>   .input, .output {border: 1px solid #888888;}    .output {margin-bottom:1em;position:relative;top:-1px;}    .output pre,.input pre {background-color:#EFEFEF;line-height:1.25em;margin:0;padding:0.25em;}    .title {background-color:#FFFFFF;border-bottom: 1px solid #888888;font-family:arial;font-weight:bold;padding:0.25em;} </style><div class="sample-tests">
+ <div class="section-title"/div>
+ <div class="sample-test">
+  <div class="input">
+   <div class="title">
+    Input
+   </div>
+   <pre>3 1 0<br>10 20 30<br>-1 -1 2<br></pre>
+  </div>
+  <div class="output">
+   <div class="title">
+    Output
+   </div>
+   <pre>0.300000000000<br></pre>
+  </div>
+  <div class="input">
+   <div class="title">
+    Input
+   </div>
+   <pre>1 1 1<br>100<br>123<br></pre>
+  </div>
+  <div class="output">
+   <div class="title">
+    Output
+   </div>
+   <pre>1.000000000000<br></pre>
+  </div>
+ </div>
+</div></dd>
+    
+        <dt>Note</dt>
+        <dd><div class="note">
+ <div class="section-title"Note/div>
+ <p>In the first sample we need either win no tour or win the third one. If we win nothing we wouldn't perform well. So, we must to win the third tour. Other conditions will be satisfied in this case. Probability of wining the third tour is 0.3.</p>
+ <p>In the second sample we win the only tour with probability 1.0, and go back home with bag for it.</p>
+</div></dd>
+    
+</div>
+<textarea class="data-json-container" style="display: none"></textarea>
+
+<script type="text/javascript">moduleName = "./problem/description";</script>
+<script src="/static/bundle/loader.d41d8cd98f00b204e980.js?1507728032431"></script>
+<script src="/static/bundle/vendor.718fa7a24912623a2098.js"></script>
+<script src="/static/bundle/app.1c0be34f10e14230f282.js"></script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <style>
+        dt {
+            font-weight: bold;
+            margin-top: 20px;
+            padding-left: 35px;
+        }
+
+        dd {
+            box-shadow: 3px 3px 6px #888888;
+            background-color: rgba(210, 210, 255, 0.5);
+            padding: 20px;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            font-family: "Merriweather", serif;
+            font-size: 18px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .desc-container {
+            color: rgba(210, 210, 255, 0.5);;
+        }
+
+        pre {
+            white-space: pre-wrap;       /* Since CSS 2.1 */
+            white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+            white-space: -pre-wrap;      /* Opera 4-6 */
+            white-space: -o-pre-wrap;    /* Opera 7 */
+            word-wrap: break-word;       /* Internet Explorer 5.5+ */
+        }
+    </style>
+</head>
+
+<body>
+<div class="container" id="description-container">
+    
+        <dt></dt>
+        <dd><div>
+ <p>Iahub accidentally discovered a secret lab. He found there <span class="tex-span"><i>n</i></span> devices ordered in a line, numbered from <span class="tex-span">1</span> to <span class="tex-span"><i>n</i></span> from left to right. Each device <span class="tex-span"><i>i</i></span> <span class="tex-span">(1 ≤ <i>i</i> ≤ <i>n</i>)</span> can create either <span class="tex-span"><i>a</i><sub class="lower-index"><i>i</i></sub></span> units of matter or <span class="tex-span"><i>a</i><sub class="lower-index"><i>i</i></sub></span> units of antimatter. </p>
+ <p>Iahub wants to choose some contiguous subarray of devices in the lab, specify the production mode for each of them (produce matter or antimatter) and finally take a photo of it. However he will be successful only if the amounts of matter and antimatter produced in the selected subarray will be the same (otherwise there would be overflowing matter or antimatter in the photo). </p>
+ <p>You are requested to compute the number of different ways Iahub can successful take a photo. A photo is different than another if it represents another subarray, or if at least one device of the subarray is set to produce matter in one of the photos and antimatter in the other one.</p>
+</div></dd>
+    
+        <dt>Input</dt>
+        <dd><div class="input-specification">
+ <div class="section-title"/div>
+ <p>The first line contains an integer <span class="tex-span"><i>n</i></span> <span class="tex-span">(1 ≤ <i>n</i> ≤ 1000)</span>. The second line contains <span class="tex-span"><i>n</i></span> integers <span class="tex-span"><i>a</i><sub class="lower-index">1</sub></span>, <span class="tex-span"><i>a</i><sub class="lower-index">2</sub></span>, ..., <span class="tex-span"><i>a</i><sub class="lower-index"><i>n</i></sub></span> <span class="tex-span">(1 ≤ <i>a</i><sub class="lower-index"><i>i</i></sub> ≤ 1000)</span>.</p>
+ <p>The sum <span class="tex-span"><i>a</i><sub class="lower-index">1</sub> + <i>a</i><sub class="lower-index">2</sub> + ... + <i>a</i><sub class="lower-index"><i>n</i></sub></span> will be less than or equal to <span class="tex-span">10000</span>.</p>
+</div></dd>
+    
+        <dt>Output</dt>
+        <dd><div class="output-specification">
+ <div class="section-title"/div>
+ <p>Output a single integer, the number of ways Iahub can take a photo, modulo <span class="tex-span">1000000007</span> (<span class="tex-span">10<sup class="upper-index">9</sup> + 7</span>).</p>
+</div></dd>
+    
+        <dt>Example</dt>
+        <dd><style type='text/css'>   .input, .output {border: 1px solid #888888;}    .output {margin-bottom:1em;position:relative;top:-1px;}    .output pre,.input pre {background-color:#EFEFEF;line-height:1.25em;margin:0;padding:0.25em;}    .title {background-color:#FFFFFF;border-bottom: 1px solid #888888;font-family:arial;font-weight:bold;padding:0.25em;} </style><div class="sample-tests">
+ <div class="section-title"/div>
+ <div class="sample-test">
+  <div class="input">
+   <div class="title">
+    Input
+   </div>
+   <pre>4<br>1 1 1 1<br></pre>
+  </div>
+  <div class="output">
+   <div class="title">
+    Output
+   </div>
+   <pre>12<br></pre>
+  </div>
+ </div>
+</div></dd>
+    
+        <dt>Note</dt>
+        <dd><div class="note">
+ <div class="section-title"Note/div>
+ <p>The possible photos are [1+, 2-], [1-, 2+], [2+, 3-], [2-, 3+], [3+, 4-], [3-, 4+], [1+, 2+, 3-, 4-], [1+, 2-, 3+, 4-], [1+, 2-, 3-, 4+], [1-, 2+, 3+, 4-], [1-, 2+, 3-, 4+] and [1-, 2-, 3+, 4+], where "<span class="tex-span"><i>i</i></span>+" means that the <span class="tex-span"><i>i</i></span>-th element produces matter, and "<span class="tex-span"><i>i</i></span>-" means that the <span class="tex-span"><i>i</i></span>-th element produces antimatter.</p>
+</div></dd>
+    
+</div>
+<textarea class="data-json-container" style="display: none"></textarea>
+
+<script type="text/javascript">moduleName = "./problem/description";</script>
+<script src="/static/bundle/loader.d41d8cd98f00b204e980.js?1507728032431"></script>
+<script src="/static/bundle/vendor.718fa7a24912623a2098.js"></script>
+<script src="/static/bundle/app.1c0be34f10e14230f282.js"></script>
+</body>
+
+</html>

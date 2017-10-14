@@ -1,0 +1,6 @@
+with open('list') as f:
+    num = []
+    lines = f.readlines()
+    for line in lines:
+        num.append(int(line.rstrip()))
+print(num)
